@@ -9,11 +9,11 @@
             "type": "cppdbg",
             "request": "launch",
             //解决控制台一闪而过的问题
-            "program": "C:\\Windows\\System32\\cmd.exe",
-            "args": ["/c","${workspaceFolder}\\${workspaceFolderBasename}.exe","&","pause"],
+            // "program": "C:\\Windows\\System32\\cmd.exe",
+            // "args": ["/c","${workspaceFolder}\\${workspaceFolderBasename}.exe","&","pause"],
             
-            // "program": "${workspaceFolder}\\${workspaceFolderBasename}.exe",        //指定要调试的可执行文件
-            // "args":[],
+            "program": "${workspaceFolder}\\${workspaceFolderBasename}.exe",        //指定要调试的可执行文件
+            "args":[],
 
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

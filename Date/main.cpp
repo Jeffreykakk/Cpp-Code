@@ -1,5 +1,6 @@
 #include <iostream>
-
+#include <stdbool.h>
+#include <windows.h>
 using namespace std;
 
 class Date
@@ -13,11 +14,52 @@ public:
         _month=month;
         _day=day;
     }
-    Date(const Date& d)                         //拷贝构造函数
+    bool IsLeap()
     {
-        _year=d._year;
-        _month=d._month;
-        _day=d._day;
+        return _year%4==0 && _year%100!=0 || _year %400==0;
+    }
+    int GetMonthDay()
+    {
+        static int days[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
+        if(_month==2 && (*this).IsLeap())
+        return 29;
+        else
+        return days[_month];
+    }
+    bool operator==(const Date& d)
+    {
+        return _year==d._year && _month==d._month && _day==d._day;
+    }
+    Date operator+(int day)
+    {
+        Date copy=*this;
+        copy._day+=day;
+        while(copy._day>copy.GetMonthDay())
+        {
+            copy._day-=copy.GetMonthDay();
+            copy._month++;
+            if(copy._month==13)
+            {
+                copy._year++;
+                copy._month=1;
+            }
+        }
+        return copy;
+    }
+    Date& operator+=(int day)
+    {
+        _day+=day;
+        while(_day>(*this).GetMonthDay())
+        {
+            _day-=(*this).GetMonthDay();
+            _month++;
+            if(_month==13)
+            {
+                _year++;
+                _month=1;
+            }
+        }
+        return *this;
     }
     void DatePrint()
     {
@@ -32,11 +74,11 @@ private:
 
 int main()
 {
-    Date d1(2023,6,5);
-    Date d2;
-    Date d3=d1;
+    Date d1(2022,7,23);
+    Date d2=d1+50;
+    d1+=50;
     d1.DatePrint();
     d2.DatePrint();
-    d3.DatePrint();
+    system("pause");
     return 0;
 }
