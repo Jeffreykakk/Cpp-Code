@@ -13,6 +13,12 @@ public:
         _month=month;
         _day=day;
     }
+    Date(const Date& d)                         //拷贝构造函数
+    {
+        _year=d._year;
+        _month=d._month;
+        _day=d._day;
+    }
     void DatePrint()
     {
         cout << _year << '-' << _month << '-' << _day << endl;
@@ -28,7 +34,9 @@ int main()
 {
     Date d1(2023,6,5);
     Date d2;
+    Date d3=d1;
     d1.DatePrint();
     d2.DatePrint();
+    d3.DatePrint();
     return 0;
 }
