@@ -14,10 +14,12 @@ public:
         _month=month;
         _day=day;
     }
+
     bool IsLeap()
     {
         return _year%4==0 && _year%100!=0 || _year %400==0;
     }
+
     int GetMonthDay()
     {
         static int days[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
@@ -26,26 +28,49 @@ public:
         else
         return days[_month];
     }
+
     bool operator==(const Date& d)
     {
         return _year==d._year && _month==d._month && _day==d._day;
     }
+
+    bool operator!=(const Date& d)
+    {
+        return !(*this==d);
+    }
+
+    bool operator>(const Date& d)
+    {
+        if(_year>d._year)
+        return true;
+        else if(_year==d._year && _month>d._month)
+        return true;
+        else if(_year==d._year && _month==d._month && _day>d._day)
+        return true;
+        else
+        return false;
+    }
+
+    bool operator>=(const Date& d)
+    {
+        return *this > d || *this == d ;
+    }
+    bool operator<(const Date& d)
+    {
+        return !(*this>=d);
+    }
+
+    bool operator<=(const Date& d)
+    {
+        return !(*this>d);
+    }
+
     Date operator+(int day)
     {
         Date copy=*this;
-        copy._day+=day;
-        while(copy._day>copy.GetMonthDay())
-        {
-            copy._day-=copy.GetMonthDay();
-            copy._month++;
-            if(copy._month==13)
-            {
-                copy._year++;
-                copy._month=1;
-            }
-        }
-        return copy;
+        return copy+=day;
     }
+
     Date& operator+=(int day)
     {
         _day+=day;
@@ -61,7 +86,20 @@ public:
         }
         return *this;
     }
-    void DatePrint()
+
+    Date& operator++()
+    {
+        return *this+=1;
+    }
+
+    Date operator++(int)
+    {
+        Date tmp=*this;
+        *this+=1;
+        return tmp;
+    }
+
+    void Print()
     {
         cout << _year << '-' << _month << '-' << _day << endl;
     }
@@ -75,10 +113,9 @@ private:
 int main()
 {
     Date d1(2022,7,23);
-    Date d2=d1+50;
-    d1+=50;
-    d1.DatePrint();
-    d2.DatePrint();
+    Date ret1=++d1;
+    (++ret1).Print();
+    d1.Print();
     system("pause");
     return 0;
 }
