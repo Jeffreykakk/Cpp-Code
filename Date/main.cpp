@@ -87,6 +87,29 @@ public:
         return *this;
     }
 
+    Date operator-(int day)
+    {
+        Date copy=*this;
+        copy-=day;
+        return copy;
+    }
+
+    Date& operator-=(int day)
+    {
+        _day-=day;
+        while(_day<1)
+        {
+            _month--;
+            if(_month==0)
+            {
+                _month=12;
+                _year--;
+            }
+            _day+=(*this).GetMonthDay();
+        }
+        return *this;
+    }
+
     Date& operator++()
     {
         return *this+=1;
@@ -98,6 +121,23 @@ public:
         *this+=1;
         return tmp;
     }
+
+    Date& operator--()
+    {
+        return *this-=1;
+    }
+
+    Date operator--(int)
+    {
+        Date tmp=*this;
+        *this-=1;
+        return tmp;
+    }
+
+    // int operator-(Date& d)
+    // {
+
+    // }
 
     void Print()
     {
@@ -112,10 +152,10 @@ private:
 
 int main()
 {
-    Date d1(2022,7,23);
-    Date ret1=++d1;
-    (++ret1).Print();
+    Date d1(2023,6,7);
+    (d1--).Print();
     d1.Print();
+    (--d1).Print();
     system("pause");
     return 0;
 }
