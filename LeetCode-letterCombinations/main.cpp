@@ -5,6 +5,8 @@
 
 using namespace std;
 
+// 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合
+
 class Solution
 {
     const char *NumToStr[10] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
@@ -36,7 +38,7 @@ public:
 int main()
 {
     auto v = Solution().letterCombinations("23");
-    for(auto& e:v)
+    for (auto &e : v)
         cout << e << ' ';
     cout << endl;
     system("pause");
