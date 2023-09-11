@@ -48,10 +48,10 @@ void test4()
 
 int main()
 {
-    Jeffrey::test4();
-    cout << "------------" << endl;
-    ::test4();
-
+    // Jeffrey::test4();
+    // cout << "------------" << endl;
+    // ::test4();
+    Jeffrey::test5();
     system("pause");
     return 0;
 }

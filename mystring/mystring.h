@@ -143,6 +143,11 @@ namespace Jeffrey
             _size = _capacity = n;
             _str[_size] = '\0';
         }
+        string(string &&str)
+            : _str(nullptr), _size(0), _capacity(0)
+        {
+            swap(str);
+        }
         string(const string &str)
             : _str(nullptr), _size(0), _capacity(0)
         {
@@ -157,12 +162,20 @@ namespace Jeffrey
             _size = _capacity = 0;
         }
 
-        string &operator=(string str)
+        string &operator=(const string &str)
+        {
+            if (this != &str)
+            {
+                string tmp = str;
+                swap(tmp);
+            }
+            return *this;
+        }
+        string &operator=(string &&str)
         {
             swap(str);
             return *this;
         }
-
         void reserve(size_t n)
         {
             if (n > _capacity)
@@ -421,5 +434,11 @@ namespace Jeffrey
         cin >> s1 >> s2;
         cout << s1 << endl;
         cout << s2 << endl;
+    }
+    void test5()
+    {
+        string s1 = "abcd";
+        string s2;
+        s1 = move(s1);
     }
 };
